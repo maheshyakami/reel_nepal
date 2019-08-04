@@ -68,10 +68,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       SizedBox(
                         width: 15,
                       ),
-                      Text(snapshot.data.genres.toString(),
+                      Text(snapshot.data.genres.first.genreName ?? 'N/A',
                           style: TextStyle(color: Colors.white, fontSize: 14))
                     ],
                   ),
+                  Divider(),
                   Row(
                     children: <Widget>[
                       SizedBox(
@@ -83,6 +84,37 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           fit: BoxFit.fill,
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
+                        ),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                ("Synopsis: ${snapshot.data.synopsis}") ??
+                                    'N/A',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                ("Directors: ${snapshot.data.directors.first.crewName}") ??
+                                    'N/A',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                "Release Date: ${snapshot.data.releaseDate}",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],

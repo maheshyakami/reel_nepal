@@ -6,6 +6,7 @@ import 'package:reel_nepal/models/front/movie_model.dart';
 import 'package:reel_nepal/services/movie_service.dart';
 
 import '../../singletons.dart';
+import 'crew_detail_page.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final int movieId;
@@ -103,11 +104,27 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               SizedBox(
                                 height: 15,
                               ),
-                              Text(
-                                ("Director: ${snapshot.data.directors.first.crewName}") ??
-                                    'N/A',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.white),
+                              GestureDetector(
+                                child: SizedBox(
+                                  width: 150,
+                                  child: Text(
+                                    ("Director: ${snapshot.data.directors.first.crewName}") ??
+                                        'N/A',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.white),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CrewDetailPage(
+                                                title: snapshot.data.directors
+                                                    .first.crewName,
+                                                crewId: snapshot.data.directors
+                                                    .first.crewId,
+                                              )));
+                                },
                               ),
                               SizedBox(
                                 height: 15,
@@ -124,7 +141,64 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         ),
                       )
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "Main Casts",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: FlatButton(
+                              onPressed: () {},
+                              child: Text(
+                                "All Casts",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
+                  Expanded(
+                      child: ListView.builder(
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(
+                        "${snapshot.data.casts[index].crewName}",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      subtitle: Text(
+                        "${snapshot.data.casts[index].roleName}",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      leading: CachedNetworkImage(
+                        imageUrl: AppConfiguration.crewImgThumbnail(
+                            snapshot.data.casts[index].profilePhoto),
+                        errorWidget: (context, url, error) =>
+                            new Icon(Icons.error),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CrewDetailPage(
+                                      title:
+                                          snapshot.data.casts[index].crewName,
+                                      crewId: snapshot.data.casts[index].crewId,
+                                    )));
+                      },
+                    ),
+                    itemCount: snapshot.data.mainCasts.length,
+                  ))
                 ],
               );
             }

@@ -21,7 +21,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent.withBlue(201).withOpacity(0.15),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -86,6 +86,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               Icon(Icons.error),
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -101,7 +104,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 height: 15,
                               ),
                               Text(
-                                ("Directors: ${snapshot.data.directors.first.crewName}") ??
+                                ("Director: ${snapshot.data.directors.first.crewName}") ??
                                     'N/A',
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.white),
@@ -112,7 +115,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               Text(
                                 "Release Date: ${snapshot.data.releaseDate}",
                                 style: TextStyle(color: Colors.white),
-                              )
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
                             ],
                           ),
                         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reel_nepal/services/news_service.dart';
 
 import '../../singletons.dart';
+import '../search_page.dart';
 
 class NewsDetailPage extends StatefulWidget {
   final int newsId;
@@ -20,6 +21,14 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
       appBar: AppBar(
         //centerTitle: true,
         title: Text("${widget.title}"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchPage()));
+              })
+        ],
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(

@@ -6,6 +6,7 @@ import 'package:reel_nepal/models/front/movie_model.dart';
 import 'package:reel_nepal/services/movie_service.dart';
 
 import '../../singletons.dart';
+import '../search_page.dart';
 import 'crew_detail_page.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -28,6 +29,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text("${widget.title}"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchPage()));
+              })
+        ],
       ),
       body: FutureBuilder<MovieModel>(
         future: singletons<MovieService>().getMovieById(widget.movieId),

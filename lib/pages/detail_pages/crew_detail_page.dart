@@ -6,6 +6,7 @@ import 'package:reel_nepal/models/front/crew_model.dart';
 import 'package:reel_nepal/services/crew_service.dart';
 
 import '../../singletons.dart';
+import '../search_page.dart';
 
 class CrewDetailPage extends StatefulWidget {
   final int crewId;
@@ -25,6 +26,14 @@ class _CrewDetailPageState extends State<CrewDetailPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('${widget.title}'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchPage()));
+              })
+        ],
       ),
       body: FutureBuilder<CrewModel>(
         future: singletons<CrewService>().getCrewById(widget.crewId),

@@ -69,6 +69,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       SizedBox(
                         width: 15,
                       ),
+                      // ignore: sdk_version_ui_as_code
                       if (snapshot.data.genres.isNotEmpty)
                         Text(snapshot.data.genres.first.genreName,
                             style:

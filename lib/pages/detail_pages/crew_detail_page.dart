@@ -36,75 +36,77 @@ class _CrewDetailPageState extends State<CrewDetailPage> {
             );
           } else {
             if (snapshot.hasData) {
-              return Column(
-                children: <Widget>[
-                  Text(
-                    snapshot.data.name,
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 317,
-                        width: 214,
-                        child: CachedNetworkImage(
-                          imageUrl: AppConfiguration.crewImgThumbnail(
-                              snapshot.data.profilePhoto),
-                          fit: BoxFit.fill,
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      snapshot.data.name,
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 317,
+                          width: 214,
+                          child: CachedNetworkImage(
+                            imageUrl: AppConfiguration.crewImgThumbnail(
+                                snapshot.data.profilePhoto),
+                            fit: BoxFit.fill,
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.face),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                snapshot.data.nameNepali,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "DoB: ${snapshot.data.dob}",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Designation: ${snapshot.data.designation}",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          width: 15,
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Html(
-                    defaultTextStyle: TextStyle(color: Colors.white),
-                    data: """${snapshot.data.fullBio}""" ?? 'N/A',
-                    useRichText: true,
-                  ),
-                ],
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  snapshot.data.nameNepali,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "DoB: ${snapshot.data.dob}",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Designation: ${snapshot.data.designation}",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Html(
+                      defaultTextStyle: TextStyle(color: Colors.white),
+                      data: """${snapshot.data.fullBio}""" ?? 'N/A',
+                      useRichText: true,
+                    ),
+                  ],
+                ),
               );
               ;
             }

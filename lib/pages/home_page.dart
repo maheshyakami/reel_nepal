@@ -2,22 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:reel_nepal/configurations/app_configuration.dart';
 import 'package:reel_nepal/models/front/front_data_model.dart';
 import 'package:reel_nepal/models/front/movie_model.dart';
 import 'package:reel_nepal/models/front/news_model.dart';
-import 'package:reel_nepal/models/front/search_model.dart';
 import 'package:reel_nepal/models/front/video_model.dart';
 import 'package:reel_nepal/pages/detail_pages/movie_detail_page.dart';
 import 'package:reel_nepal/pages/info_pages/featured_movies_page.dart';
 import 'package:reel_nepal/pages/info_pages/recent_videos_page.dart';
 import 'package:reel_nepal/pages/info_pages/top_news_page.dart';
+import 'package:reel_nepal/pages/search_page.dart';
 import 'package:reel_nepal/services/front_data_service.dart';
-import 'package:reel_nepal/services/search_service.dart';
 import 'package:reel_nepal/widgets/reel_appbar.dart';
-
-import '../singletons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -85,38 +81,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
-                  return TypeAheadField<SearchModel>(
-                      suggestionsCallback: singletons<SearchService>().search,
-                      itemBuilder: (context, searchModel) {
-                        return ListTile(
-                          leading: SizedBox(
-                            width: 50.0,
-                            child: searchModel.searchThumb == null
-                                ? Container()
-                                : Image.network(
-                                    searchModel.searchThumb,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                          ),
-                          title: Text(searchModel.name ?? ''),
-                        );
-                      },
-                      onSuggestionSelected: (searchModel) {
-                        if (searchModel.category == 'pr') {
-                          /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CrewDetailPage(crewId: searchModel.id)));*/
-                        }
-                        if (searchModel.category == 'mv') {
-                          /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                MovieDetailPage(crewId: searchModel.id)));*/
-                        }
-                      });
+                  SearchPage();
                 })
           ],
         ),
@@ -277,12 +242,11 @@ class HomeMoviePane extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
+              physics: BouncingScrollPhysics(),
               //scrollDirection: Axis.horizontal,
-              itemCount: 15 /*data.length*/,
-              gridDelegate:
-                  //SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 3),
-                  SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 10, crossAxisCount: 3),
+              itemCount: data.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 10, crossAxisCount: 3),
               itemBuilder: (context, index) => Card(
                 color: Colors.transparent,
                 child: GridTile(
@@ -378,6 +342,7 @@ class TopNewsPane extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: data.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
@@ -449,6 +414,7 @@ class RecentVideoPane extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: Text(data[index].title),

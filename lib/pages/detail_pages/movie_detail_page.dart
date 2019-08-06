@@ -69,8 +69,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       SizedBox(
                         width: 15,
                       ),
-                      Text(snapshot.data.genres.first.genreName ?? 'N/A',
-                          style: TextStyle(color: Colors.white, fontSize: 14))
+                      if (snapshot.data.genres.isNotEmpty)
+                        Text(snapshot.data.genres.first.genreName,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14)),
                     ],
                   ),
                   Divider(),

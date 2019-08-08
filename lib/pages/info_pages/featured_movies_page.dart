@@ -20,6 +20,11 @@ class _FeaturedMoviesPageState extends State<FeaturedMoviesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        mini: true,
+        child: Icon(Icons.vertical_align_top),
+      ),
       appBar: ReelAppBar(
         title: Text("Featured Movies", style: TextStyle(color: Colors.white)),
         actions: <Widget>[

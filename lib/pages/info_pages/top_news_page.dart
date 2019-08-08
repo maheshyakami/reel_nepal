@@ -4,6 +4,7 @@ import 'package:reel_nepal/configurations/app_configuration.dart';
 import 'package:reel_nepal/models/front/news_model.dart';
 import 'package:reel_nepal/pages/detail_pages/news_detail_page.dart';
 import 'package:reel_nepal/widgets/reel_appbar.dart';
+import 'package:time_ago_provider/time_ago_provider.dart';
 
 import '../search_page.dart';
 
@@ -32,30 +33,34 @@ class TopNewsPage extends StatelessWidget {
         child: Icon(Icons.vertical_align_top),
       ),
       body: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        itemCount: data.length,
-        itemBuilder: (context, index) => Card(
-          child: ListTile(
-            title: Text(data[index].title),
-            trailing: Text(data[index].publishedDate),
-            enabled: true,
-            subtitle: Text(data[index].refinedContent),
-            leading: CachedNetworkImage(
-              imageUrl:
-                  AppConfiguration.API_NEWSBASE_URL + data[index].photoName,
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NewsDetailPage(
-                            newsId: data[index].newsId,
-                          )));
-            },
-          ),
-        ),
-      ),
+          physics: BouncingScrollPhysics(),
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            var timeStamp = DateTime.parse(data[index].publishedDate)
+                .millisecondsSinceEpoch;
+            String timeAgo = TimeAgo.getTimeAgo(timeStamp);
+            return Card(
+              child: ListTile(
+                title: Text(data[index].title),
+                trailing: Text(timeAgo),
+                enabled: true,
+                subtitle: Text(data[index].refinedContent),
+                leading: CachedNetworkImage(
+                  imageUrl:
+                      AppConfiguration.API_NEWSBASE_URL + data[index].photoName,
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NewsDetailPage(
+                                newsId: data[index].newsId,
+                              )));
+                },
+              ),
+            );
+          }),
     );
   }
 }

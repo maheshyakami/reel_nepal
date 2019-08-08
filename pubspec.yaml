@@ -16,6 +16,8 @@ dependencies:
   duration: ^2.0.8
   flutter_html: ^0.10.4
   youtube_player_flutter: ^3.0.0+1
+  time_ago_provider: ^1.0.3
+  url_launcher: ^5.1.2
 
   cupertino_icons: ^0.1.2
 

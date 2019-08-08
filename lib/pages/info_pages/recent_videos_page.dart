@@ -36,8 +36,8 @@ class RecentVideoPage extends StatelessWidget {
         itemBuilder: (context, index) => Card(
           child: ListTile(
             title: Text(data[index].title),
-            trailing: Text(data[index].publishedDate),
-            //subtitle: Text(data[index].description ?? 'N/A'),
+            //trailing: Text(data[index].publishedDate),
+            subtitle: Text(data[index].description ?? 'N/A'),
             leading: CachedNetworkImage(
               imageUrl:
                   AppConfiguration.videoToThumbnail(data[index].youTubeId),

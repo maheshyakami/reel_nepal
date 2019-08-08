@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reel_nepal/widgets/reel_appbar.dart';
+import 'package:time_ago_provider/time_ago_provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../search_page.dart';
@@ -38,26 +39,29 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               })
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 10,
-          ),
-          YoutubePlayer(
-            context: context,
-            videoId: widget.youTubeId,
-            flags: YoutubePlayerFlags(
-              showVideoProgressIndicator: true,
-              autoPlay: false,
-              hideControls: false,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            YoutubePlayer(
+              context: context,
+              videoId: widget.youTubeId,
+              flags: YoutubePlayerFlags(
+                //hideFullScreenButton: true,
+                showVideoProgressIndicator: true,
+                autoPlay: false,
+                hideControls: false,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(widget.publishedDate),
-          Text(widget.description),
-        ],
+            SizedBox(
+              height: 10,
+            ),
+            //var timeStamp = DateTime.parse(data[index].publishedDate).millisecondsSinceEpoch;
+            //String timeAgo = TimeAgo.getTimeAgo(timeStamp);
+            Text(
+                "Published ${TimeAgo.getTimeAgo(DateTime.parse(widget.publishedDate).millisecondsSinceEpoch)}"),
+            Text("Description: " + widget.description),
+          ],
+        ),
       ),
     );
   }

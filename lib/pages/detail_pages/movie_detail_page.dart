@@ -166,51 +166,86 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: FlatButton(
-                              onPressed: () {},
-                              child: Text(
-                                "All Casts",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              )),
-                        ),
-                      )
                     ],
                   ),
                   Expanded(
-                      child: ListView.builder(
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(
-                        "${snapshot.data.casts[index].crewName}",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                    child: ListView.builder(
+                      itemBuilder: (context, index) => ListTile(
+                        title: Text(
+                          "${snapshot.data.casts[index].crewName}",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        subtitle: Text(
+                          "${snapshot.data.casts[index].roleName}",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        leading: CachedNetworkImage(
+                          imageUrl: AppConfiguration.crewImgThumbnail(
+                              snapshot.data.casts[index].profilePhoto),
+                          errorWidget: (context, url, error) =>
+                              new Icon(Icons.error),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CrewDetailPage(
+                                        title:
+                                            snapshot.data.casts[index].crewName,
+                                        crewId:
+                                            snapshot.data.casts[index].crewId,
+                                      )));
+                        },
                       ),
-                      subtitle: Text(
-                        "${snapshot.data.casts[index].roleName}",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      leading: CachedNetworkImage(
-                        imageUrl: AppConfiguration.crewImgThumbnail(
-                            snapshot.data.casts[index].profilePhoto),
-                        errorWidget: (context, url, error) =>
-                            new Icon(Icons.error),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CrewDetailPage(
-                                      title:
-                                          snapshot.data.casts[index].crewName,
-                                      crewId: snapshot.data.casts[index].crewId,
-                                    )));
-                      },
+                      itemCount: snapshot.data.mainCasts.length,
                     ),
-                    itemCount: snapshot.data.mainCasts.length,
-                  ))
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "Crew List",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) => ListTile(
+                        title: Text(
+                          "${snapshot.data.fullCrewList[index].crewName}",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        subtitle: Text(
+                          "${snapshot.data.fullCrewList[index].roleName}",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        leading: CachedNetworkImage(
+                          imageUrl: AppConfiguration.crewImgThumbnail(
+                              snapshot.data.fullCrewList[index].profilePhoto),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CrewDetailPage(
+                                        title: snapshot
+                                            .data.fullCrewList[index].crewName,
+                                        crewId: snapshot
+                                            .data.fullCrewList[index].crewId,
+                                      )));
+                        },
+                      ),
+                      itemCount: snapshot.data.fullCrewList.length,
+                    ),
+                  )
                 ],
               );
             }

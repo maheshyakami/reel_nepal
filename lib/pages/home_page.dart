@@ -207,7 +207,7 @@ class HomeMoviePane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.transparent,
+      elevation: 10,
       child: Column(
         children: <Widget>[
           Row(
@@ -243,6 +243,12 @@ class HomeMoviePane extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          Divider(
+            endIndent: 5,
+            indent: 5,
+            color: Colors.green,
+            height: 0,
           ),
           Expanded(
             child: GridView.builder(
@@ -307,7 +313,7 @@ class TopNewsPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.transparent,
+      elevation: 10,
       child: Column(
         children: <Widget>[
           Row(
@@ -344,6 +350,12 @@ class TopNewsPane extends StatelessWidget {
               ),
             ],
           ),
+          Divider(
+            endIndent: 5,
+            indent: 5,
+            color: Colors.green,
+            height: 0,
+          ),
           Expanded(
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
@@ -351,8 +363,8 @@ class TopNewsPane extends StatelessWidget {
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: Text(data[index].title),
-                  trailing: Text(data[index].publishedDate),
-                  enabled: true,
+                  //trailing: Text(data[index].publishedDate),
+                  //enabled: true,
                   subtitle: Text(data[index].refinedContent),
                   leading: CachedNetworkImage(
                     imageUrl: AppConfiguration.API_NEWSBASE_URL +
@@ -385,7 +397,7 @@ class RecentVideoPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.transparent,
+      elevation: 10,
       child: Column(
         children: <Widget>[
           Row(
@@ -396,7 +408,10 @@ class RecentVideoPane extends StatelessWidget {
                 child: Text(
                   "Recent Videos",
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 24),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 24,
+                  ),
                 ),
               ),
               Expanded(
@@ -423,13 +438,19 @@ class RecentVideoPane extends StatelessWidget {
               ),
             ],
           ),
+          Divider(
+            endIndent: 5,
+            indent: 5,
+            color: Colors.green,
+            height: 0,
+          ),
           Expanded(
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: Text(data[index].title),
-                  trailing: Text(data[index].publishedDate),
+                  //trailing: Text(data[index].publishedDate),
                   //subtitle: Text(data[index].description ?? 'N/A'),
                   leading: CachedNetworkImage(
                     imageUrl: AppConfiguration.videoToThumbnail(

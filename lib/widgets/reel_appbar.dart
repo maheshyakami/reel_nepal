@@ -12,13 +12,13 @@ class ReelAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ReelAppBar({
     Key key,
     this.title,
+    this.leading,
     this.actions = const [],
     this.automaticallyImplyLeading = true,
     this.centerTitle,
-    this.leading,
   }) : super(key: key);
 
-  bool _getEffectiveCenterTitle(ThemeData themeData) {
+  /*bool _getEffectiveCenterTitle(ThemeData themeData) {
     if (centerTitle != null) return centerTitle;
     assert(themeData.platform != null);
     switch (themeData.platform) {
@@ -29,7 +29,7 @@ class ReelAppBar extends StatelessWidget implements PreferredSizeWidget {
         return actions == null || actions.length < 2;
     }
     return null;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -67,17 +67,17 @@ class ReelAppBar extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width: 10.0),
-            Center(
-              child: DefaultTextStyle(
-                style: Theme.of(context).textTheme?.title,
-                softWrap: false,
-                overflow: TextOverflow.ellipsis,
-                child: Semantics(
-                  child: title,
-                  header: true,
-                ),
-              ),
+            //SizedBox(width: 80.0),
+            //Expanded(
+            //flex: 2,
+            //child:
+            DefaultTextStyle(
+              style: Theme.of(context).textTheme?.title,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              child: title,
             ),
+            //), // Expanded
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,

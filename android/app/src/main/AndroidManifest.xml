@@ -9,7 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="reel_nepal"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/reel_logo">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -26,8 +26,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       backgroundColor: Colors.transparent.withBlue(201).withOpacity(0.15),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
         centerTitle: true,
+        backgroundColor: Colors.transparent,
         title: Text("${widget.title}"),
         actions: <Widget>[
           IconButton(

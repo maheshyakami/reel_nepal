@@ -28,9 +28,9 @@ class NewsModel {
     photoName = json['photoName'];
 
     if (json['movieTags'] != null) {
-      movieTags = new List<MovieTags>();
+      movieTags = List<MovieTags>();
       json['movieTags'].forEach((v) {
-        movieTags.add(new MovieTags.fromJson(v));
+        movieTags.add(MovieTags.fromJson(v));
       });
     }
   }

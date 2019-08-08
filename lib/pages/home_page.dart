@@ -15,6 +15,9 @@ import 'package:reel_nepal/pages/search_page.dart';
 import 'package:reel_nepal/services/front_data_service.dart';
 import 'package:reel_nepal/widgets/reel_appbar.dart';
 
+import 'detail_pages/news_detail_page.dart';
+import 'detail_pages/video_detail_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -245,7 +248,7 @@ class HomeMoviePane extends StatelessWidget {
             child: GridView.builder(
               physics: BouncingScrollPhysics(),
               //scrollDirection: Axis.horizontal,
-              itemCount: data.length,
+              itemCount: data.length, // show 15 moviegridtiles in hompage
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 10, crossAxisCount: 3),
               itemBuilder: (context, index) => Card(
@@ -344,7 +347,7 @@ class TopNewsPane extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
-              itemCount: data.length,
+              itemCount: data.length, // show 15 newstiles in homepage,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: Text(data[index].title),
@@ -354,9 +357,16 @@ class TopNewsPane extends StatelessWidget {
                   leading: CachedNetworkImage(
                     imageUrl: AppConfiguration.API_NEWSBASE_URL +
                         data[index].photoName,
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewsDetailPage(
+                                  newsId: data[index].newsId,
+                                )));
+                  },
                 ),
               ),
             ),
@@ -420,15 +430,27 @@ class RecentVideoPane extends StatelessWidget {
                 child: ListTile(
                   title: Text(data[index].title),
                   trailing: Text(data[index].publishedDate),
-                  subtitle: Text(data[index].description ?? 'N/A'),
+                  //subtitle: Text(data[index].description ?? 'N/A'),
                   leading: CachedNetworkImage(
                     imageUrl: AppConfiguration.videoToThumbnail(
                         data[index].youTubeId),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VideoDetailPage(
+                                  videoId: data[index].videoId,
+                                  title: data[index].title,
+                                  publishedDate: data[index].publishedDate,
+                                  youTubeId: data[index].youTubeId,
+                                  description: data[index].description ?? 'n/a',
+                                )));
+                  },
                 ),
               ),
-              itemCount: data.length,
+              itemCount: data.length, //15 show 15 videos on homepage,
             ),
           ),
         ],

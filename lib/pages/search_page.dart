@@ -23,45 +23,65 @@ class _SearchPageState extends State<SearchPage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: TypeAheadField<SearchModel>(
-          suggestionsCallback: singletons<SearchService>().search,
-          itemBuilder: (context, searchModel) {
-            return ListTile(
-              leading: SizedBox(
-                width: 50.0,
-                child: searchModel.searchThumb == null
-                    ? Container()
-                    : Image.network(
-                        searchModel.searchThumb,
-                        fit: BoxFit.fitWidth,
-                      ),
+      body: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
               ),
-              title: Text(searchModel.name ?? ''),
-            );
-          },
-          onSuggestionSelected: (searchModel) {
-            if (searchModel.category == 'pr') {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CrewDetailPage(
-                            crewId: searchModel.id,
-                            title: searchModel.name,
-                          )));
-            }
-            if (searchModel.category == 'mv') {
-              Navigator.pop(context);
+              Expanded(
+                child: TypeAheadField<SearchModel>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                        decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Search",
+                      hintText: "Enter Search Query",
+                    )),
+                    suggestionsCallback: singletons<SearchService>().search,
+                    getImmediateSuggestions: true,
+                    itemBuilder: (context, searchModel) {
+                      return ListTile(
+                        leading: SizedBox(
+                          width: 50.0,
+                          child: searchModel.searchThumb == null
+                              ? Container()
+                              : Image.network(
+                                  searchModel.searchThumb,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                        ),
+                        title: Text(searchModel.name ?? ''),
+                      );
+                    },
+                    onSuggestionSelected: (searchModel) {
+                      if (searchModel.category == 'pr') {
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CrewDetailPage(
+                                      crewId: searchModel.id,
+                                      title: searchModel.name,
+                                    )));
+                      }
+                      if (searchModel.category == 'mv') {
+                        Navigator.pop(context);
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MovieDetailPage(
-                            movieId: searchModel.id,
-                            title: searchModel.name,
-                          )));
-            }
-          }),
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MovieDetailPage(
+                                      movieId: searchModel.id,
+                                      title: searchModel.name,
+                                    )));
+                      }
+                    }),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
